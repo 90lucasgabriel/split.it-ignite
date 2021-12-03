@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="br.com.lucasgabriel.splitit.splitit">
+    package="br.com.lucasgabriel.splitit">
    <application
         android:label="splitit"
         android:icon="@mipmap/ic_launcher">
