@@ -1,8 +1,30 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:splitit/theme/app_theme.dart';
 
-class SplashPage extends StatelessWidget {
+class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
+
+  @override
+  State<SplashPage> createState() => _SplashPageState();
+}
+
+class _SplashPageState extends State<SplashPage> {
+  void initializeFirebase() async {
+    try {
+      await Firebase.initializeApp();
+      await Future.delayed(const Duration(seconds: 2));
+      Navigator.pushReplacementNamed(context, '/login');
+    } catch (error) {
+      Navigator.pushNamed(context, '/error');
+    }
+  }
+
+  @override
+  void initState() {
+    initializeFirebase();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
