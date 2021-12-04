@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+
+import 'package:splitit/modules/login/login_controller.dart';
+import 'package:splitit/modules/login/login_state.dart';
+
 import 'package:splitit/theme/app_theme.dart';
 import 'package:splitit/widgets/social_button.dart';
 
@@ -10,6 +14,23 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  late LoginController controller;
+
+  @override
+  void initState() {
+    controller = LoginController(onUpdate: () {
+      if (controller.state is LoginStateSuccess) {
+        final user = (controller.state as LoginStateSuccess).user;
+        Navigator.pushReplacementNamed(context, '/home', arguments: user);
+
+        return;
+      }
+      setState(() {});
+    });
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,23 +53,18 @@ class _LoginPageState extends State<LoginPage> {
             padding: const EdgeInsets.symmetric(horizontal: 32),
             child: Column(
               children: [
-                Text(
-                  'Faça seu login com uma das contas abaixo',
-                  style: AppTheme.textStyles.text,
-                ),
-                const SizedBox(height: 32),
-                const SocialButtonWidget(
+                SocialButtonWidget(
                   imagePath: 'assets/images/google.png',
                   label: 'Entrar com Google',
-                ),
-                const SizedBox(height: 12),
-                const SocialButtonWidget(
-                  imagePath: 'assets/images/apple.png',
-                  label: 'Entrar com Apple',
+                  onTap: controller.signInGoogle,
                 ),
               ],
             ),
-          )
+          ),
+          if (controller.state is LoginStateLoading)
+            const CircularProgressIndicator(),
+          if (controller.state is LoginStateFailure)
+            Text((controller.state as LoginStateFailure).message),
         ],
       ),
     );
