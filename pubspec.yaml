@@ -38,6 +38,7 @@ dependencies:
   firebase_core: ^1.10.0
   google_sign_in: ^5.2.1
   google_sign_in_web: ^0.10.0+3
+  mocktail: ^0.2.0
   #sign_in_with_apple: ^3.3.0
 
 dev_dependencies:
