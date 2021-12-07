@@ -60,13 +60,12 @@ class _LoginPageState extends State<LoginPage> {
                 SocialButtonWidget(
                   imagePath: 'assets/images/google.png',
                   label: 'Entrar com Google',
+                  isLoading: controller.state is LoginStateLoading,
                   onTap: controller.signInGoogle,
                 ),
               ],
             ),
           ),
-          if (controller.state is LoginStateLoading)
-            const CircularProgressIndicator(),
           if (controller.state is LoginStateFailure)
             Text((controller.state as LoginStateFailure).message),
         ],

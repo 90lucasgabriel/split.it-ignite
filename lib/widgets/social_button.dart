@@ -5,12 +5,14 @@ import 'package:splitit/theme/app_theme.dart';
 class SocialButtonWidget extends StatefulWidget {
   final String imagePath;
   final String label;
+  final bool isLoading;
   final VoidCallback onTap;
 
   const SocialButtonWidget({
     Key? key,
     required this.imagePath,
     required this.label,
+    required this.isLoading,
     required this.onTap,
   }) : super(key: key);
 
@@ -47,10 +49,18 @@ class _SocialButtonWidgetState extends State<SocialButtonWidget> {
             ),
             Expanded(
               child: Center(
-                child: Text(
-                  widget.label,
-                  style: AppTheme.textStyles.text,
-                ),
+                child: widget.isLoading
+                    ? SizedBox(
+                        height: 24,
+                        width: 24,
+                        child: CircularProgressIndicator(
+                          color: AppTheme.colors.grayLight,
+                        ),
+                      )
+                    : Text(
+                        widget.label,
+                        style: AppTheme.textStyles.text,
+                      ),
               ),
             ),
           ],
