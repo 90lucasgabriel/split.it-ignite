@@ -24,7 +24,7 @@ class AppBarWidget extends PreferredSize {
               Container(
                 alignment: Alignment.topLeft,
                 padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
-                height: 318,
+                height: 328,
                 child: SafeArea(
                   top: true,
                   child: Column(
