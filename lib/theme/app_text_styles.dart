@@ -7,10 +7,16 @@ abstract class AppTextStyles {
   TextStyle get title;
   TextStyle get text;
   TextStyle get appBarTitle;
+
   TextStyle get positivePrice;
   TextStyle get positivePriceTitle;
   TextStyle get negativePrice;
   TextStyle get negativePriceTitle;
+
+  TextStyle get eventTileTitle;
+  TextStyle get eventTileSubtitle;
+  TextStyle get eventTileValue;
+  TextStyle get eventTilePeople;
 }
 
 class AppTextStylesDefault implements AppTextStyles {
@@ -61,5 +67,33 @@ class AppTextStylesDefault implements AppTextStyles {
         fontSize: 20,
         fontWeight: FontWeight.w600,
         color: AppTheme.colors.error,
+      );
+
+  @override
+  TextStyle get eventTileTitle => GoogleFonts.inter(
+        fontSize: 16,
+        fontWeight: FontWeight.w600,
+        color: AppTheme.colors.grayDark,
+      );
+
+  @override
+  TextStyle get eventTileSubtitle => GoogleFonts.inter(
+        fontSize: 12,
+        fontWeight: FontWeight.w400,
+        color: AppTheme.colors.grayDark,
+      );
+
+  @override
+  TextStyle get eventTileValue => GoogleFonts.inter(
+        fontSize: 16,
+        fontWeight: FontWeight.w400,
+        color: AppTheme.colors.gray,
+      );
+
+  @override
+  TextStyle get eventTilePeople => GoogleFonts.inter(
+        fontSize: 12,
+        fontWeight: FontWeight.w400,
+        color: AppTheme.colors.grayLight,
       );
 }
