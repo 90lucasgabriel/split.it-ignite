@@ -44,7 +44,7 @@ class EventTileWidget extends StatelessWidget {
             ],
           ),
         ),
-        Divider(),
+        const Divider(),
       ],
     );
   }
