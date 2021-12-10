@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:splitit/modules/home/widgets/info_card_widget.dart';
+import 'package:splitit/modules/home/widgets/app_bar/widgets/bottom_app_bar/widget.dart';
 
 import 'package:splitit/modules/login/models/user_model.dart';
 import 'package:splitit/theme/app_theme.dart';
@@ -60,16 +60,7 @@ class AppBarWidget extends PreferredSize {
                         ],
                       ),
                       const SizedBox(height: 24),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          InfoCardWidget(
-                            value: 124,
-                          ),
-                          SizedBox(width: 24),
-                          InfoCardWidget(value: -235),
-                        ],
-                      )
+                      const BottomAppBarWidget()
                     ],
                   ),
                 ),
