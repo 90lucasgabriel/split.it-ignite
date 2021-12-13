@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
+import 'package:splitit/widgets/skeleton.dart';
 
 import 'package:splitit/theme/app_theme.dart';
 import 'package:splitit/widgets/icon_card_widget.dart';
 
 class InfoCardWidget extends StatelessWidget {
   final double value;
+  final bool isLoading;
 
   const InfoCardWidget({
     Key? key,
     required this.value,
+    required this.isLoading,
   }) : super(key: key);
 
   TextStyle get valueTextStyle => value >= 0
@@ -47,7 +51,13 @@ class InfoCardWidget extends StatelessWidget {
               children: [
                 Text(description, style: AppTheme.textStyles.text),
                 const SizedBox(height: 4),
-                Text('R\$ ${value.toStringAsFixed(2)}', style: valueTextStyle),
+                if (isLoading) ...[
+                  const Skeleton(
+                    size: Size(94, 24),
+                  ),
+                ] else ...[
+                  Text('R\$ ${value.toStringAsFixed(2)}', style: valueTextStyle)
+                ],
               ],
             ),
           ],
