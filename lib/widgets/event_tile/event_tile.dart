@@ -1,19 +1,29 @@
 import 'package:flutter/material.dart';
 
-import 'package:splitit/theme/app_theme.dart';
 import 'package:splitit/shared/models/event.dart';
+import 'package:splitit/theme/app_theme.dart';
+import 'package:splitit/widgets/event_tile/event_tile_loading.dart';
 import 'package:splitit/widgets/icon_card_widget.dart';
 
 class EventTileWidget extends StatelessWidget {
   final EventModel model;
+  final bool isLoading;
 
-  const EventTileWidget({Key? key, required this.model}) : super(key: key);
+  const EventTileWidget({
+    Key? key,
+    required this.model,
+    required this.isLoading,
+  }) : super(key: key);
 
   IconCardType get iconCardType =>
       model.value >= 0 ? IconCardType.positive : IconCardType.negative;
 
   @override
   Widget build(BuildContext context) {
+    if (isLoading) {
+      return const EventTileLoading();
+    }
+
     return Column(
       children: [
         ListTile(

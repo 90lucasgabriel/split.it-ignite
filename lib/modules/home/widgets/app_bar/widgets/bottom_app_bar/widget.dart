@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:splitit/modules/home/widgets/app_bar/controller.dart';
 import 'package:splitit/modules/home/widgets/app_bar/state.dart';
+import 'package:splitit/modules/home/widgets/app_bar/widgets/bottom_app_bar/loading.dart';
 import 'package:splitit/modules/home/widgets/info_card_widget.dart';
 
 class BottomAppBarWidget extends StatefulWidget {
@@ -28,7 +29,7 @@ class _BottomAppBarWidgetState extends State<BottomAppBarWidget> {
     switch (controller.state.runtimeType) {
       case AppBarStateLoading:
         {
-          return const CircularProgressIndicator();
+          return const BottomAppBarLoading();
         }
       case AppBarStateSuccess:
         {
@@ -39,10 +40,12 @@ class _BottomAppBarWidgetState extends State<BottomAppBarWidget> {
             children: [
               InfoCardWidget(
                 value: dashboard.positive,
+                isLoading: false,
               ),
               const SizedBox(width: 24),
               InfoCardWidget(
-                value: -dashboard.negative,
+                value: dashboard.negative,
+                isLoading: false,
               ),
             ],
           );
