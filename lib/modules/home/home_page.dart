@@ -32,7 +32,12 @@ class _HomePageState extends State<HomePage> {
         ModalRoute.of(context)!.settings.arguments as UserModel;
 
     return Scaffold(
-      appBar: AppBarWidget(user: user, onTapAddButton: () {}),
+      appBar: AppBarWidget(
+        user: user,
+        onTapAddButton: () {
+          Navigator.pushNamed(context, '/create_split');
+        },
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [

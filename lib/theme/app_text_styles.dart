@@ -6,6 +6,7 @@ import 'package:splitit/theme/app_theme.dart';
 abstract class AppTextStyles {
   TextStyle get title;
   TextStyle get text;
+  TextStyle get textDisabled;
   TextStyle get appBarTitle;
 
   TextStyle get positivePrice;
@@ -17,6 +18,12 @@ abstract class AppTextStyles {
   TextStyle get eventTileSubtitle;
   TextStyle get eventTileValue;
   TextStyle get eventTilePeople;
+
+  TextStyle get appBarCurrentPage;
+  TextStyle get appBarTotalPages;
+
+  TextStyle get eventTitle;
+  TextStyle get eventSubtitle;
 }
 
 class AppTextStylesDefault implements AppTextStyles {
@@ -32,6 +39,13 @@ class AppTextStylesDefault implements AppTextStyles {
         fontSize: 16,
         fontWeight: FontWeight.w400,
         color: AppTheme.colors.gray,
+      );
+
+  @override
+  TextStyle get textDisabled => GoogleFonts.inter(
+        fontSize: 16,
+        fontWeight: FontWeight.w400,
+        color: AppTheme.colors.grayLight,
       );
 
   @override
@@ -95,5 +109,33 @@ class AppTextStylesDefault implements AppTextStyles {
         fontSize: 12,
         fontWeight: FontWeight.w400,
         color: AppTheme.colors.grayLight,
+      );
+
+  @override
+  TextStyle get appBarCurrentPage => GoogleFonts.inter(
+        fontSize: 12,
+        fontWeight: FontWeight.w700,
+        color: AppTheme.colors.primary,
+      );
+
+  @override
+  TextStyle get appBarTotalPages => GoogleFonts.inter(
+        fontSize: 12,
+        fontWeight: FontWeight.w400,
+        color: AppTheme.colors.grayLight,
+      );
+
+  @override
+  TextStyle get eventTitle => GoogleFonts.inter(
+        fontSize: 24,
+        fontWeight: FontWeight.w600,
+        color: AppTheme.colors.grayDark,
+      );
+
+  @override
+  TextStyle get eventSubtitle => GoogleFonts.inter(
+        fontSize: 24,
+        fontWeight: FontWeight.w400,
+        color: AppTheme.colors.grayDark,
       );
 }
