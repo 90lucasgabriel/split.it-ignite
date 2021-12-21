@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:splitit/modules/create_split/pages/items.dart';
+
+import 'package:splitit/theme/app_theme.dart';
+
 import 'package:splitit/modules/create_split/controllers/create_split_controller.dart';
 import 'package:splitit/modules/create_split/pages/event.dart';
+import 'package:splitit/modules/create_split/pages/people.dart';
 import 'package:splitit/modules/create_split/widgets/app_bar/app_bar.dart';
 import 'package:splitit/modules/create_split/widgets/bottom_step_bar/bottom_step_bar.dart';
-import 'package:splitit/modules/create_split/widgets/button_step/button_step.dart';
-import 'package:splitit/theme/app_theme.dart';
 
 class CreateSplitPage extends StatefulWidget {
   const CreateSplitPage({Key? key}) : super(key: key);
@@ -28,8 +31,8 @@ class _CreateSplitPageState extends State<CreateSplitPage> {
           setState(() {});
         },
       ),
-      Container(color: Colors.yellow),
-      Container(color: Colors.green),
+      PeoplePage(),
+      ItemsPage(),
     ];
 
     super.initState();
