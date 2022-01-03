@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'package:splitit/shared/models/event.dart';
 import 'package:splitit/theme/app_theme.dart';
@@ -24,6 +25,9 @@ class EventTileWidget extends StatelessWidget {
       return const EventTileLoading();
     }
 
+    var dateFormat = DateFormat('dd/MM/yyyy');
+    var parsedDate = dateFormat.format(model.createdAt);
+
     return Column(
       children: [
         ListTile(
@@ -35,7 +39,7 @@ class EventTileWidget extends StatelessWidget {
             style: AppTheme.textStyles.eventTileTitle,
           ),
           subtitle: Text(
-            model.createdAt.toString(),
+            parsedDate.toString(),
             style: AppTheme.textStyles.eventTileSubtitle,
           ),
           trailing: Column(
