@@ -20,7 +20,7 @@ abstract class _HomeControllerBase with Store {
   HomeState state = HomeStateEmpty();
 
   @action
-  Future<void> getEventList(VoidCallback callback) async {
+  Future<void> getEventList() async {
     try {
       state = HomeStateLoading();
 
@@ -28,8 +28,6 @@ abstract class _HomeControllerBase with Store {
       state = HomeStateSuccess(eventList: response);
     } catch (error) {
       state = HomeStateFailure(message: error.toString());
-    } finally {
-      callback();
     }
   }
 }
