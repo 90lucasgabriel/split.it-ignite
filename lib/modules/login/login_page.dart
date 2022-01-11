@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
 
 import 'package:splitit/modules/login/login_controller.dart';
 import 'package:splitit/modules/login/login_service.dart';
@@ -21,16 +23,16 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     controller = LoginController(
       service: LoginServiceImpl(),
-      onUpdate: () {
-        if (controller.state is LoginStateSuccess) {
-          final user = (controller.state as LoginStateSuccess).user;
-          Navigator.pushReplacementNamed(context, '/home', arguments: user);
-
-          return;
-        }
-        setState(() {});
-      },
     );
+
+    autorun((_) {
+      if (controller.state is LoginStateSuccess) {
+        final user = (controller.state as LoginStateSuccess).user;
+        Navigator.pushReplacementNamed(context, '/home', arguments: user);
+
+        return;
+      }
+    });
 
     super.initState();
   }
@@ -53,18 +55,22 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ],
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 32),
-            child: Column(
-              children: [
-                SocialButtonWidget(
-                  imagePath: 'assets/images/google.png',
-                  label: 'Entrar com Google',
-                  isLoading: controller.state is LoginStateLoading,
-                  onTap: controller.signInGoogle,
+          Observer(
+            builder: (context) {
+              return Container(
+                padding: const EdgeInsets.symmetric(horizontal: 32),
+                child: Column(
+                  children: [
+                    SocialButtonWidget(
+                      imagePath: 'assets/images/google.png',
+                      label: 'Entrar com Google',
+                      isLoading: controller.state is LoginStateLoading,
+                      onTap: controller.signInGoogle,
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              );
+            },
           ),
           if (controller.state is LoginStateFailure)
             Text((controller.state as LoginStateFailure).message),
