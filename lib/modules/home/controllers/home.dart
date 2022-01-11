@@ -1,18 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:mobx/mobx.dart';
 
 import 'package:splitit/modules/home/repositories/home.dart';
 import 'package:splitit/modules/home/repositories/home_mock.dart';
 import 'package:splitit/modules/home/state/home.dart';
 
-class HomeController {
+part 'home.g.dart';
+
+class HomeController = _HomeControllerBase with _$HomeController;
+
+abstract class _HomeControllerBase with Store {
   late HomeRepository repository;
 
-  HomeState state = HomeStateEmpty();
-
-  HomeController({HomeRepository? repository}) {
+  _HomeControllerBase({HomeRepository? repository}) {
     this.repository = repository ?? HomeRepositoryMock();
   }
 
+  @observable
+  HomeState state = HomeStateEmpty();
+
+  @action
   Future<void> getEventList(VoidCallback callback) async {
     try {
       state = HomeStateLoading();
