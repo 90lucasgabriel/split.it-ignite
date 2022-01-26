@@ -21,11 +21,11 @@ class PersonTile extends StatelessWidget {
       title: Text(name),
       trailing: isSelected
           ? IconButton(
-              icon: Icon(Icons.remove),
+              icon: const Icon(Icons.remove),
               onPressed: () {},
             )
           : IconButton(
-              icon: Icon(Icons.add),
+              icon: const Icon(Icons.add),
               onPressed: () {},
             ),
     );

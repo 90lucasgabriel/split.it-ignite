@@ -22,8 +22,8 @@ class ButtonStep extends StatelessWidget {
         child: Text(
           label,
           style: disabled
-              ? AppTheme.textStyles.textDisabled
-              : AppTheme.textStyles.text,
+              ? AppTheme.textStyles.text
+              : AppTheme.textStyles.textDisabled,
         ),
       ),
     );

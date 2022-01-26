@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:splitit/modules/home/controllers/home.dart';
 import 'package:splitit/modules/home/state/home.dart';
 
@@ -19,9 +20,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    controller.getEventList(() {
-      setState(() {});
-    });
+    controller.getEventList();
 
     super.initState();
   }
@@ -41,20 +40,35 @@ class _HomePageState extends State<HomePage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            if (controller.state is HomeStateLoading)
-              ...List.generate(4, (index) => const EventTileLoading()),
-            if (controller.state is HomeStateSuccess)
-              ...(controller.state as HomeStateSuccess)
-                  .eventList
-                  .map(
-                    (event) => EventTileWidget(
-                      model: event,
-                      isLoading: false,
-                    ),
-                  )
-                  .toList(),
-            if (controller.state is HomeStateFailure)
-              Text((controller.state as HomeStateFailure).message),
+            Observer(
+              builder: (context) {
+                if (controller.state is HomeStateLoading) {
+                  return Column(
+                    children:
+                        List.generate(4, (index) => const EventTileLoading()),
+                  );
+                }
+
+                if (controller.state is HomeStateSuccess) {
+                  return Column(
+                      children: (controller.state as HomeStateSuccess)
+                          .eventList
+                          .map(
+                            (event) => EventTileWidget(
+                              model: event,
+                              isLoading: false,
+                            ),
+                          )
+                          .toList());
+                }
+
+                if (controller.state is HomeStateFailure) {
+                  return Text((controller.state as HomeStateFailure).message);
+                }
+
+                return Container();
+              },
+            ),
           ],
         ),
       ),

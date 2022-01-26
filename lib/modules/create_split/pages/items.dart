@@ -13,10 +13,10 @@ class ItemsPage extends StatelessWidget {
         const StepTitle(title: 'Quais itens', subtitle: 'você quer dividir?'),
         const SizedBox(height: 40),
         Container(
-          padding: EdgeInsets.symmetric(horizontal: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 8),
           child: Row(
             children: [
-              Expanded(
+              const Expanded(
                 child: Text('1'),
               ),
               Expanded(

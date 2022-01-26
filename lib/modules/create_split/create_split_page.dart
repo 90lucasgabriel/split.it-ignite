@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:splitit/modules/create_split/pages/items.dart';
 
 import 'package:splitit/theme/app_theme.dart';
@@ -20,40 +21,16 @@ class _CreateSplitPageState extends State<CreateSplitPage> {
   final controller = CreateSplitController();
 
   late List<Widget> pageList;
-  var currentPage = 0;
 
   @override
   void initState() {
     pageList = [
-      EventPage(
-        onChanged: (value) {
-          controller.setEventName(value);
-          setState(() {});
-        },
-      ),
-      PeoplePage(),
-      ItemsPage(),
+      EventPage(controller: controller),
+      const PeoplePage(),
+      const ItemsPage(),
     ];
 
     super.initState();
-  }
-
-  void nextPage() {
-    if (currentPage == pageList.length - 1) {
-      return;
-    }
-
-    currentPage++;
-    setState(() {});
-  }
-
-  void previousPage() {
-    if (currentPage == 0) {
-      return;
-    }
-
-    currentPage--;
-    setState(() {});
   }
 
   @override
@@ -64,19 +41,21 @@ class _CreateSplitPageState extends State<CreateSplitPage> {
         onBackPressed: () {
           Navigator.pop(context);
         },
-        currentPage: currentPage,
+        controller: controller,
         totalPages: pageList.length,
       ),
       body: Center(
-        child: pageList[currentPage],
+        child: Observer(builder: (context) {
+          return pageList[controller.currentPage];
+        }),
       ),
       bottomNavigationBar: CreateSplitBottomStepBar(
-        enabledButtons: controller.enabledNavigateButton(),
+        controller: controller,
         previousOnPressed: () {
-          previousPage();
+          controller.previousPage();
         },
         nextOnPressed: () {
-          nextPage();
+          controller.nextPage();
         },
       ),
     );
