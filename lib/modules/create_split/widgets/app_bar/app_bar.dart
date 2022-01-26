@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:splitit/modules/create_split/controllers/create_split_controller.dart';
+
 import 'package:splitit/theme/app_theme.dart';
 
 class CreateSplitAppBar extends PreferredSize {
   final VoidCallback onBackPressed;
-  final int currentPage;
+  final CreateSplitController controller;
   final int totalPages;
 
   CreateSplitAppBar({
     required this.onBackPressed,
-    required this.currentPage,
+    required this.controller,
     required this.totalPages,
     Key? key,
   }) : super(
@@ -27,18 +30,20 @@ class CreateSplitAppBar extends PreferredSize {
                 ),
                 Container(
                   padding: const EdgeInsets.only(right: 12),
-                  child: Text.rich(
-                    TextSpan(
-                      text: '${currentPage + 1}',
-                      style: AppTheme.textStyles.appBarCurrentPage,
-                      children: [
-                        TextSpan(
-                          text: ' - $totalPages',
-                          style: AppTheme.textStyles.appBarTotalPages,
-                        )
-                      ],
-                    ),
-                  ),
+                  child: Observer(builder: (context) {
+                    return Text.rich(
+                      TextSpan(
+                        text: '${controller.currentPage + 1}',
+                        style: AppTheme.textStyles.appBarCurrentPage,
+                        children: [
+                          TextSpan(
+                            text: ' - $totalPages',
+                            style: AppTheme.textStyles.appBarTotalPages,
+                          )
+                        ],
+                      ),
+                    );
+                  }),
                 )
               ],
             ),

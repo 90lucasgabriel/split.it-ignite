@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:splitit/widgets/skeleton.dart';
 
 import 'package:splitit/theme/app_theme.dart';
