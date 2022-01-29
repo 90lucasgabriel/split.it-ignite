@@ -1,32 +1,54 @@
 import 'package:flutter/material.dart';
 
+import 'package:splitit/shared/models/friend_model.dart';
+import 'package:splitit/theme/app_theme.dart';
+
 class PersonTile extends StatelessWidget {
+  final FriendModel data;
+  final bool isSelected;
+  final VoidCallback onPressed;
+
   const PersonTile({
     Key? key,
-    required this.name,
+    required this.data,
     required this.isSelected,
+    required this.onPressed,
   }) : super(key: key);
-
-  final String name;
-  final bool isSelected;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       leading: Container(
-        height: 40,
-        width: 40,
-        color: Colors.grey,
+          height: 40,
+          width: 40,
+          decoration: BoxDecoration(
+            color: Colors.grey.shade200,
+            borderRadius: BorderRadius.circular(10),
+            image: DecorationImage(
+              image: NetworkImage(data.photoURL),
+              fit: BoxFit.cover,
+            ),
+          )),
+      title: Text(
+        data.name,
+        style: isSelected
+            ? AppTheme.textStyles.eventTileTitle
+            : AppTheme.textStyles.text,
       ),
-      title: Text(name),
       trailing: isSelected
           ? IconButton(
-              icon: const Icon(Icons.remove),
-              onPressed: () {},
+              icon: Icon(
+                Icons.remove,
+                color: AppTheme.colors.error,
+              ),
+              onPressed: onPressed,
             )
           : IconButton(
-              icon: const Icon(Icons.add),
-              onPressed: () {},
+              icon: Icon(
+                Icons.add,
+                color: AppTheme.colors.primary,
+              ),
+              onPressed: onPressed,
             ),
     );
   }

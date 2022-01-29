@@ -6,7 +6,7 @@ import 'package:splitit/theme/app_theme.dart';
 
 import 'package:splitit/modules/create_split/controllers/create_split_controller.dart';
 import 'package:splitit/modules/create_split/pages/event.dart';
-import 'package:splitit/modules/create_split/pages/people.dart';
+import 'package:splitit/modules/create_split/pages/people/people_page.dart';
 import 'package:splitit/modules/create_split/widgets/app_bar/app_bar.dart';
 import 'package:splitit/modules/create_split/widgets/bottom_step_bar/bottom_step_bar.dart';
 
