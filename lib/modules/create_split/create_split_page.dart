@@ -26,7 +26,7 @@ class _CreateSplitPageState extends State<CreateSplitPage> {
   void initState() {
     pageList = [
       EventPage(controller: controller),
-      const PeoplePage(),
+      PeoplePage(controller: controller),
       const ItemsPage(),
     ];
 

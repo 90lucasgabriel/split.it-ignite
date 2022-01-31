@@ -1,6 +1,7 @@
 import 'package:mobx/mobx.dart';
-import 'package:splitit/shared/models/friend_model.dart';
 
+import 'package:splitit/modules/create_split/controllers/create_split_controller.dart';
+import 'package:splitit/shared/models/friend_model.dart';
 import 'package:splitit/shared/repositories/firebase_repository.dart';
 
 part 'people_controller.g.dart';
@@ -9,6 +10,15 @@ class PeopleController = _PeopleControllerBase with _$PeopleController;
 
 abstract class _PeopleControllerBase with Store {
   final repository = FirebaseRepository();
+  final CreateSplitController controller;
+
+  _PeopleControllerBase({
+    required this.controller,
+  }) {
+    autorun((_) {
+      controller.setSelectedFriendList(selectedFriendList);
+    });
+  }
 
   @observable
   List<FriendModel> _friendListOriginal = [];
