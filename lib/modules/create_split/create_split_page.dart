@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:splitit/modules/create_split/pages/items.dart';
+import 'package:splitit/modules/create_split/pages/items/items_page.dart';
 
 import 'package:splitit/theme/app_theme.dart';
 
@@ -27,7 +27,7 @@ class _CreateSplitPageState extends State<CreateSplitPage> {
     pageList = [
       EventPage(controller: controller),
       PeoplePage(controller: controller),
-      const ItemsPage(),
+      ItemsPage(controller: controller),
     ];
 
     super.initState();

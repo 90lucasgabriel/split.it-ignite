@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:splitit/modules/create_split/widgets/item_add_button/item_add_button.dart';
 
 import 'package:splitit/theme/app_theme.dart';
 
@@ -24,6 +25,8 @@ abstract class AppTextStyles {
 
   TextStyle get eventTitle;
   TextStyle get eventSubtitle;
+
+  TextStyle get itemAddButton;
 }
 
 class AppTextStylesDefault implements AppTextStyles {
@@ -137,5 +140,12 @@ class AppTextStylesDefault implements AppTextStyles {
         fontSize: 24,
         fontWeight: FontWeight.w400,
         color: AppTheme.colors.grayDark,
+      );
+
+  @override
+  TextStyle get itemAddButton => GoogleFonts.inter(
+        fontSize: 16,
+        fontWeight: FontWeight.w400,
+        color: AppTheme.colors.primary,
       );
 }

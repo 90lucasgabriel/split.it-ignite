@@ -1,5 +1,6 @@
 import 'package:mobx/mobx.dart';
 import 'package:splitit/shared/models/friend_model.dart';
+import 'package:splitit/shared/models/item_model.dart';
 
 part 'create_split_controller.g.dart';
 
@@ -15,6 +16,9 @@ abstract class _CreateSplitControllerBase with Store {
 
   @observable
   List<FriendModel> selectedFriendList = <FriendModel>[];
+
+  @observable
+  List<ItemModel> itemList = <ItemModel>[];
 
   @action
   void nextPage() {
@@ -42,6 +46,11 @@ abstract class _CreateSplitControllerBase with Store {
   @action
   void setSelectedFriendList(List<FriendModel> value) {
     selectedFriendList = value;
+  }
+
+  @action
+  void setItemList(List<ItemModel> value) {
+    itemList = value;
   }
 
   @computed
