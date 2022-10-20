@@ -31,10 +31,10 @@ void main() {
       // Act
       when(repository.getEventList).thenAnswer((_) async => [
             EventModel(
-                title: 'title',
-                createdAt: DateTime.now(),
-                value: 100,
-                people: 2)
+              title: 'title',
+              createdAt: DateTime.now(),
+              value: 100,
+            )
           ]);
 
       await controller.getEventList();

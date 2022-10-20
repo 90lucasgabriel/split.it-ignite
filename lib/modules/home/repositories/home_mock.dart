@@ -22,49 +22,41 @@ class HomeRepositoryMock implements HomeRepository {
         title: 'Churrasco',
         createdAt: DateTime.now(),
         value: 143.71,
-        people: 4,
       ),
       EventModel(
         title: 'Pizza',
         createdAt: DateTime.now(),
         value: 85.90,
-        people: 3,
       ),
       EventModel(
         title: 'Churrasco',
         createdAt: DateTime.now(),
         value: 143.71,
-        people: 4,
       ),
       EventModel(
         title: 'Pizza',
         createdAt: DateTime.now(),
         value: -85.90,
-        people: 3,
       ),
       EventModel(
         title: 'Churrasco',
         createdAt: DateTime.now(),
         value: 143.71,
-        people: 4,
       ),
       EventModel(
         title: 'Pizza',
         createdAt: DateTime.now(),
         value: 85.90,
-        people: 3,
       ),
       EventModel(
         title: 'Churrasco',
         createdAt: DateTime.now(),
         value: -143.71,
-        people: 4,
       ),
       EventModel(
         title: 'Pizza',
         createdAt: DateTime.now(),
         value: 85.90,
-        people: 3,
       ),
     ];
   }

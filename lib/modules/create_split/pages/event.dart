@@ -25,7 +25,7 @@ class _EventPageState extends State<EventPage> {
       StepTextField(
         hintText: 'Ex: Churrasco',
         onChanged: (value) {
-          widget.controller.setEventName(value);
+          widget.controller.onChanged(title: value);
         },
       ),
     ]);

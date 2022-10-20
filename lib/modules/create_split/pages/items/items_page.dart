@@ -27,7 +27,7 @@ class _ItemsPageState extends State<ItemsPage> {
   @override
   void initState() {
     autorun((_) {
-      widget.controller.setItemList(itemsController.itemList.toList());
+      widget.controller.onChanged(items: itemsController.itemList.toList());
     });
 
     super.initState();

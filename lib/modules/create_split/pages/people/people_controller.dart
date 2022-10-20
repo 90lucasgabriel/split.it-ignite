@@ -16,7 +16,7 @@ abstract class _PeopleControllerBase with Store {
     required this.controller,
   }) {
     autorun((_) {
-      controller.setSelectedFriendList(selectedFriendList);
+      controller.onChanged(friends: selectedFriendList);
     });
   }
 

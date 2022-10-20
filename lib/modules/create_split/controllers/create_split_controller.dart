@@ -1,4 +1,5 @@
 import 'package:mobx/mobx.dart';
+import 'package:splitit/shared/models/event.dart';
 import 'package:splitit/shared/models/friend_model.dart';
 import 'package:splitit/shared/models/item_model.dart';
 
@@ -12,13 +13,11 @@ abstract class _CreateSplitControllerBase with Store {
   int currentPage = 0;
 
   @observable
-  String eventName = '';
-
-  @observable
-  List<FriendModel> selectedFriendList = <FriendModel>[];
-
-  @observable
-  List<ItemModel> itemList = <ItemModel>[];
+  EventModel event = EventModel(
+    title: '',
+    createdAt: DateTime.now(),
+    value: 0,
+  );
 
   @action
   void nextPage() {
@@ -39,25 +38,17 @@ abstract class _CreateSplitControllerBase with Store {
   }
 
   @action
-  void setEventName(String value) {
-    eventName = value;
-  }
-
-  @action
-  void setSelectedFriendList(List<FriendModel> value) {
-    selectedFriendList = value;
-  }
-
-  @action
-  void setItemList(List<ItemModel> value) {
-    itemList = value;
+  void onChanged(
+      {String? title, List<ItemModel>? items, List<FriendModel>? friends}) {
+    event = event.copyWith(title: title, items: items, friends: friends);
   }
 
   @computed
   bool get enabledNavigateButton {
-    final step1 = eventName.isNotEmpty && currentPage == 0;
-    final step2 = selectedFriendList.isNotEmpty && currentPage == 1;
+    final step1 = event.title.isNotEmpty && currentPage == 0;
+    final step2 = event.friends!.isNotEmpty && currentPage == 1;
+    final step3 = event.items!.isNotEmpty && currentPage == 2;
 
-    return step1 || step2;
+    return step1 || step2 || step3;
   }
 }
