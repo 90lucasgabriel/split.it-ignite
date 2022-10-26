@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:splitit/modules/home/controllers/home.dart';
+import 'package:splitit/modules/home/repositories/home_firebase.dart';
 import 'package:splitit/modules/home/state/home.dart';
 
 import 'package:splitit/modules/login/models/user_model.dart';
@@ -16,7 +17,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final controller = HomeController();
+  final controller = HomeController(repository: HomeRepositoryFirebase());
 
   @override
   void initState() {
