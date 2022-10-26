@@ -1,9 +1,13 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
 import 'package:splitit/modules/create_split/pages/items/items_page.dart';
 import 'package:splitit/modules/create_split/pages/success/success_page.dart';
 import 'package:splitit/shared/repositories/firebase_repository.dart';
+
+import 'package:splitit/modules/create_split/enum/status_enum.dart';
+export 'package:splitit/modules/create_split/enum/status_enum.dart';
 
 import 'package:splitit/theme/app_theme.dart';
 
@@ -36,11 +40,24 @@ class _CreateSplitPageState extends State<CreateSplitPage> {
     ];
 
     _disposer = autorun((_) {
-      if (controller.status == 'success') {
+      if (controller.status == StatusEnum.success) {
+        BotToast.closeAllLoading();
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
                 builder: ((context) => SuccessPage(controller: controller))));
+        return;
+      }
+
+      if (controller.status == StatusEnum.error) {
+        BotToast.closeAllLoading();
+        BotToast.showText(text: 'Não foi possível criar o evento.');
+        return;
+      }
+
+      if (controller.status == StatusEnum.loading) {
+        BotToast.showLoading();
+        return;
       }
     });
 
