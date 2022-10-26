@@ -6,7 +6,7 @@ part of 'people_controller.dart';
 // StoreGenerator
 // **************************************************************************
 
-// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$PeopleController on _PeopleControllerBase, Store {
   Computed<List<FriendModel>>? _$friendListComputed;
@@ -17,8 +17,8 @@ mixin _$PeopleController on _PeopleControllerBase, Store {
               name: '_PeopleControllerBase.friendList'))
       .value;
 
-  final _$_friendListOriginalAtom =
-      Atom(name: '_PeopleControllerBase._friendListOriginal');
+  late final _$_friendListOriginalAtom =
+      Atom(name: '_PeopleControllerBase._friendListOriginal', context: context);
 
   @override
   List<FriendModel> get _friendListOriginal {
@@ -33,8 +33,8 @@ mixin _$PeopleController on _PeopleControllerBase, Store {
     });
   }
 
-  final _$selectedFriendListAtom =
-      Atom(name: '_PeopleControllerBase.selectedFriendList');
+  late final _$selectedFriendListAtom =
+      Atom(name: '_PeopleControllerBase.selectedFriendList', context: context);
 
   @override
   ObservableList<FriendModel> get selectedFriendList {
@@ -49,7 +49,8 @@ mixin _$PeopleController on _PeopleControllerBase, Store {
     });
   }
 
-  final _$searchAtom = Atom(name: '_PeopleControllerBase.search');
+  late final _$searchAtom =
+      Atom(name: '_PeopleControllerBase.search', context: context);
 
   @override
   String get search {
@@ -64,16 +65,16 @@ mixin _$PeopleController on _PeopleControllerBase, Store {
     });
   }
 
-  final _$getFriendListAsyncAction =
-      AsyncAction('_PeopleControllerBase.getFriendList');
+  late final _$getFriendListAsyncAction =
+      AsyncAction('_PeopleControllerBase.getFriendList', context: context);
 
   @override
   Future<void> getFriendList() {
     return _$getFriendListAsyncAction.run(() => super.getFriendList());
   }
 
-  final _$_PeopleControllerBaseActionController =
-      ActionController(name: '_PeopleControllerBase');
+  late final _$_PeopleControllerBaseActionController =
+      ActionController(name: '_PeopleControllerBase', context: context);
 
   @override
   void onChange(String value) {

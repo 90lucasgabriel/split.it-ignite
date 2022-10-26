@@ -23,14 +23,21 @@ class ItemsPage extends StatefulWidget {
 
 class _ItemsPageState extends State<ItemsPage> {
   final itemsController = ItemsController();
+  late ReactionDisposer _disposer;
 
   @override
   void initState() {
-    autorun((_) {
+    _disposer = autorun((_) {
       widget.controller.onChanged(items: itemsController.itemList.toList());
     });
 
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _disposer();
+    super.dispose();
   }
 
   @override

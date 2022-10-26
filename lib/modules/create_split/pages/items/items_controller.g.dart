@@ -6,7 +6,7 @@ part of 'items_controller.dart';
 // StoreGenerator
 // **************************************************************************
 
-// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$ItemsController on _ItemsControllerBase, Store {
   Computed<bool>? _$enabledAddButtonComputed;
@@ -23,7 +23,8 @@ mixin _$ItemsController on _ItemsControllerBase, Store {
           name: '_ItemsControllerBase.length'))
       .value;
 
-  final _$itemListAtom = Atom(name: '_ItemsControllerBase.itemList');
+  late final _$itemListAtom =
+      Atom(name: '_ItemsControllerBase.itemList', context: context);
 
   @override
   ObservableList<ItemModel> get itemList {
@@ -38,7 +39,8 @@ mixin _$ItemsController on _ItemsControllerBase, Store {
     });
   }
 
-  final _$itemAtom = Atom(name: '_ItemsControllerBase.item');
+  late final _$itemAtom =
+      Atom(name: '_ItemsControllerBase.item', context: context);
 
   @override
   ItemModel get item {
@@ -53,8 +55,8 @@ mixin _$ItemsController on _ItemsControllerBase, Store {
     });
   }
 
-  final _$_ItemsControllerBaseActionController =
-      ActionController(name: '_ItemsControllerBase');
+  late final _$_ItemsControllerBaseActionController =
+      ActionController(name: '_ItemsControllerBase', context: context);
 
   @override
   void addItem() {

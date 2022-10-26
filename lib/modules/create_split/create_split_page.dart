@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
 import 'package:splitit/modules/create_split/pages/items/items_page.dart';
 import 'package:splitit/modules/create_split/pages/success/success_page.dart';
 import 'package:splitit/shared/repositories/firebase_repository.dart';
@@ -24,6 +25,7 @@ class _CreateSplitPageState extends State<CreateSplitPage> {
       CreateSplitController(firebaseRepository: FirebaseRepository());
 
   late List<Widget> pageList;
+  late ReactionDisposer _disposer;
 
   @override
   void initState() {
@@ -31,10 +33,24 @@ class _CreateSplitPageState extends State<CreateSplitPage> {
       EventPage(controller: controller),
       PeoplePage(controller: controller),
       ItemsPage(controller: controller),
-      SuccessPage(controller: controller),
     ];
 
+    _disposer = autorun((_) {
+      if (controller.status == 'success') {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: ((context) => SuccessPage(controller: controller))));
+      }
+    });
+
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _disposer();
+    super.dispose();
   }
 
   @override
