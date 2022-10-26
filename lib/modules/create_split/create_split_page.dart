@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:splitit/modules/create_split/pages/items/items_page.dart';
+import 'package:splitit/modules/create_split/pages/success/success_page.dart';
+import 'package:splitit/shared/repositories/firebase_repository.dart';
 
 import 'package:splitit/theme/app_theme.dart';
 
@@ -18,7 +20,8 @@ class CreateSplitPage extends StatefulWidget {
 }
 
 class _CreateSplitPageState extends State<CreateSplitPage> {
-  final controller = CreateSplitController();
+  final controller =
+      CreateSplitController(firebaseRepository: FirebaseRepository());
 
   late List<Widget> pageList;
 
@@ -28,6 +31,7 @@ class _CreateSplitPageState extends State<CreateSplitPage> {
       EventPage(controller: controller),
       PeoplePage(controller: controller),
       ItemsPage(controller: controller),
+      SuccessPage(controller: controller),
     ];
 
     super.initState();
@@ -53,9 +57,6 @@ class _CreateSplitPageState extends State<CreateSplitPage> {
         controller: controller,
         previousOnPressed: () {
           controller.previousPage();
-        },
-        nextOnPressed: () {
-          controller.nextPage();
         },
       ),
     );
