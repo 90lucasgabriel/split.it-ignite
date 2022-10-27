@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:splitit/shared/utils/formatters.dart';
 
 import 'package:splitit/theme/app_theme.dart';
 import 'package:splitit/modules/create_split/controllers/create_split_controller.dart';
@@ -38,7 +39,7 @@ class SuccessPage extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              'R\$ ${controller.event.valueSplitted.toStringAsFixed(2)}',
+              controller.event.valueSplitted.real(),
               style: AppTheme.textStyles.title
                   .copyWith(color: AppTheme.colors.white),
             ),
