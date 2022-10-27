@@ -39,7 +39,7 @@ class SuccessPage extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              controller.event.valueSplitted.real(),
+              controller.event.valueSplitted.toBrl(),
               style: AppTheme.textStyles.title
                   .copyWith(color: AppTheme.colors.white),
             ),
