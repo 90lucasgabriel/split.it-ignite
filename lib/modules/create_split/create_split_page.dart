@@ -1,8 +1,13 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
 import 'package:splitit/modules/create_split/pages/items/items_page.dart';
 import 'package:splitit/modules/create_split/pages/success/success_page.dart';
 import 'package:splitit/shared/repositories/firebase_repository.dart';
+
+import 'package:splitit/modules/create_split/enum/status_enum.dart';
+export 'package:splitit/modules/create_split/enum/status_enum.dart';
 
 import 'package:splitit/theme/app_theme.dart';
 
@@ -24,6 +29,7 @@ class _CreateSplitPageState extends State<CreateSplitPage> {
       CreateSplitController(firebaseRepository: FirebaseRepository());
 
   late List<Widget> pageList;
+  late ReactionDisposer _disposer;
 
   @override
   void initState() {
@@ -31,33 +37,74 @@ class _CreateSplitPageState extends State<CreateSplitPage> {
       EventPage(controller: controller),
       PeoplePage(controller: controller),
       ItemsPage(controller: controller),
-      SuccessPage(controller: controller),
     ];
+
+    _disposer = autorun((_) {
+      if (controller.status == StatusEnum.success) {
+        BotToast.closeAllLoading();
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: ((context) => SuccessPage(controller: controller))));
+        return;
+      }
+
+      if (controller.status == StatusEnum.error) {
+        BotToast.closeAllLoading();
+        BotToast.showText(text: 'Não foi possível criar o evento.');
+        return;
+      }
+
+      if (controller.status == StatusEnum.loading) {
+        BotToast.showLoading();
+        return;
+      }
+    });
 
     super.initState();
   }
 
   @override
+  void dispose() {
+    _disposer();
+    super.dispose();
+  }
+
+  bool backNavigate() {
+    if (controller.currentPage > 0) {
+      controller.previousPage();
+      return false;
+    }
+
+    return true;
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppTheme.colors.primaryBackground,
-      appBar: CreateSplitAppBar(
-        onBackPressed: () {
-          Navigator.pop(context);
-        },
-        controller: controller,
-        totalPages: pageList.length,
-      ),
-      body: Center(
-        child: Observer(builder: (context) {
-          return pageList[controller.currentPage];
-        }),
-      ),
-      bottomNavigationBar: CreateSplitBottomStepBar(
-        controller: controller,
-        previousOnPressed: () {
-          controller.previousPage();
-        },
+    return WillPopScope(
+      onWillPop: () async => backNavigate(),
+      child: Scaffold(
+        backgroundColor: AppTheme.colors.primaryBackground,
+        appBar: CreateSplitAppBar(
+          onBackPressed: () {
+            if (backNavigate()) {
+              Navigator.pop(context);
+            }
+          },
+          controller: controller,
+          totalPages: pageList.length,
+        ),
+        body: Center(
+          child: Observer(builder: (context) {
+            return pageList[controller.currentPage];
+          }),
+        ),
+        bottomNavigationBar: CreateSplitBottomStepBar(
+          controller: controller,
+          previousOnPressed: () {
+            backNavigate();
+          },
+        ),
       ),
     );
   }

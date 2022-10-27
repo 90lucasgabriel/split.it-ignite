@@ -1,4 +1,5 @@
 import 'package:mobx/mobx.dart';
+import 'package:splitit/modules/create_split/enum/status_enum.dart';
 
 import 'package:splitit/shared/models/event.dart';
 import 'package:splitit/shared/models/friend_model.dart';
@@ -27,24 +28,22 @@ abstract class _CreateSplitControllerBase with Store {
   );
 
   @observable
-  String status = 'empty';
+  StatusEnum status = StatusEnum.empty;
 
   @action
   Future<void> saveEvent() async {
     try {
-      status = 'loading';
-      final response = await firebaseRepository.create(event);
-      print(response);
-      status = 'success';
-      nextPage();
+      status = StatusEnum.loading;
+      await firebaseRepository.create(event);
+      status = StatusEnum.success;
     } catch (e) {
-      status = 'error';
+      status = StatusEnum.error;
     }
   }
 
   @action
   void nextPage() {
-    if (currentPage >= 3) {
+    if (currentPage >= 2) {
       return;
     }
 

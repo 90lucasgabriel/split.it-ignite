@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 
 import 'package:splitit/modules/splash/splash_page.dart';
@@ -22,6 +23,8 @@ class AppWidget extends StatelessWidget {
         '/create_split': (context) => const CreateSplitPage(),
       },
       debugShowCheckedModeBanner: false,
+      builder: BotToastInit(), //1. call BotToastInit
+      navigatorObservers: [BotToastNavigatorObserver()],
     );
   }
 }

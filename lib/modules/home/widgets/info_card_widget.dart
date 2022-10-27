@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:splitit/shared/utils/formatters.dart';
 import 'package:splitit/widgets/skeleton.dart';
 
 import 'package:splitit/theme/app_theme.dart';
@@ -55,7 +56,7 @@ class InfoCardWidget extends StatelessWidget {
                     size: Size(94, 24),
                   ),
                 ] else ...[
-                  Text('R\$ ${value.toStringAsFixed(2)}', style: valueTextStyle)
+                  Text(value.toBrl(), style: valueTextStyle)
                 ],
               ],
             ),

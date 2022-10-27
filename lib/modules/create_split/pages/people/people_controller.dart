@@ -11,13 +11,18 @@ class PeopleController = _PeopleControllerBase with _$PeopleController;
 abstract class _PeopleControllerBase with Store {
   final repository = FirebaseRepository();
   final CreateSplitController controller;
+  late ReactionDisposer _disposer;
 
   _PeopleControllerBase({
     required this.controller,
   }) {
-    autorun((_) {
+    _disposer = autorun((_) {
       controller.onChanged(friends: selectedFriendList);
     });
+  }
+
+  void dispose() {
+    _disposer();
   }
 
   @observable
