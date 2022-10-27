@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:splitit/modules/event_details/event_details_page.dart';
 
 import 'package:splitit/shared/models/event.dart';
 import 'package:splitit/shared/utils/formatters.dart';
@@ -26,41 +27,46 @@ class EventTileWidget extends StatelessWidget {
       return const EventTileLoading();
     }
 
-    // var dateFormat = DateFormat('dd/MM/yyyy');
-    // var parsedDate = dateFormat.format(model.createdAt);
-
-    return Column(
-      children: [
-        ListTile(
-          leading: IconCardWidget(
-            type: iconCardType,
-          ),
-          title: Text(
-            model.title,
-            style: AppTheme.textStyles.eventTileTitle,
-          ),
-          subtitle: Text(
-            model.createdAt.dayMonth(),
-            style: AppTheme.textStyles.eventTileSubtitle,
-          ),
-          trailing: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                model.value.toBrl(),
-                style: AppTheme.textStyles.eventTileValue,
-              ),
-              const SizedBox(height: 4),
-              Text(
-                '${model.people} amigos',
-                style: AppTheme.textStyles.eventTilePeople,
-              ),
-            ],
-          ),
+    return InkWell(
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => const EventDetailsPage(),
         ),
-        const Divider(),
-      ],
+      ),
+      child: Column(
+        children: [
+          ListTile(
+            leading: IconCardWidget(
+              type: iconCardType,
+            ),
+            title: Text(
+              model.title,
+              style: AppTheme.textStyles.eventTileTitle,
+            ),
+            subtitle: Text(
+              model.createdAt.dayMonth(),
+              style: AppTheme.textStyles.eventTileSubtitle,
+            ),
+            trailing: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  model.value.toBrl(),
+                  style: AppTheme.textStyles.eventTileValue,
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  '${model.people} amigos',
+                  style: AppTheme.textStyles.eventTilePeople,
+                ),
+              ],
+            ),
+          ),
+          const Divider(),
+        ],
+      ),
     );
   }
 }
