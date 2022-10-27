@@ -30,35 +30,42 @@ class CreateSplitBottomStepBar extends StatelessWidget {
       bottom: true,
       child: Container(
           color: AppTheme.colors.primaryBackground,
-          height: 72,
-          child: Row(
-            children: [
-              Observer(
-                builder: (context) {
-                  return ButtonStep(
-                    label: 'Cancelar',
-                    disabled: controller.enabledNavigateButton,
-                    onPressed: previousOnPressed,
-                  );
-                },
-              ),
-              Container(
-                height: 72,
-                width: 1,
-                color: AppTheme.colors.grayLight,
-              ),
-              Observer(
-                builder: (context) {
-                  return ButtonStep(
-                    label:
-                        controller.currentPage == 2 ? 'Finalizar' : 'Continuar',
-                    disabled: controller.enabledNavigateButton,
-                    onPressed: onNextPressed,
-                  );
-                },
-              ),
-            ],
-          )),
+          height: 73,
+          child: Observer(
+              builder: (context) => Column(
+                    children: [
+                      Container(
+                        width: double.maxFinite,
+                        height: 1,
+                        color: controller.enabledNavigateButton
+                            ? AppTheme.colors.gray
+                            : AppTheme.colors.grayLight,
+                      ),
+                      Row(
+                        children: [
+                          ButtonStep(
+                            label: 'Cancelar',
+                            disabled: controller.enabledNavigateButton,
+                            onPressed: previousOnPressed,
+                          ),
+                          Container(
+                            height: 72,
+                            width: 1,
+                            color: controller.enabledNavigateButton
+                                ? AppTheme.colors.gray
+                                : AppTheme.colors.grayLight,
+                          ),
+                          ButtonStep(
+                            label: controller.currentPage == 2
+                                ? 'Finalizar'
+                                : 'Continuar',
+                            disabled: controller.enabledNavigateButton,
+                            onPressed: onNextPressed,
+                          )
+                        ],
+                      ),
+                    ],
+                  ))),
     );
   }
 }
