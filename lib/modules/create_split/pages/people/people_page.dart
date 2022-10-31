@@ -59,7 +59,6 @@ class _PeoplePageState extends State<PeoplePage> {
                           .map(
                             (friend) => PersonTile(
                               data: friend,
-                              isSelected: true,
                               onPressed: () {
                                 controller.removeFriend(friend);
                               },
@@ -79,7 +78,6 @@ class _PeoplePageState extends State<PeoplePage> {
                           .map(
                             (friend) => PersonTile(
                               data: friend,
-                              isSelected: false,
                               onPressed: () {
                                 controller.addFriend(friend);
                               },

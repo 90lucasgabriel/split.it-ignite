@@ -5,13 +5,11 @@ import 'package:splitit/theme/app_theme.dart';
 
 class PersonTile extends StatelessWidget {
   final FriendModel data;
-  final bool isSelected;
   final VoidCallback onPressed;
 
   const PersonTile({
     Key? key,
     required this.data,
-    required this.isSelected,
     required this.onPressed,
   }) : super(key: key);
 
@@ -31,11 +29,11 @@ class PersonTile extends StatelessWidget {
           )),
       title: Text(
         data.name,
-        style: isSelected
+        style: !data.isPaid
             ? AppTheme.textStyles.eventTileTitle
             : AppTheme.textStyles.text,
       ),
-      trailing: isSelected
+      trailing: !data.isPaid
           ? IconButton(
               icon: Icon(
                 Icons.remove,
