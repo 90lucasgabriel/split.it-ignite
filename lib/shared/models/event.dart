@@ -49,6 +49,7 @@ class EventModel extends Base {
       title: title ?? this.title,
       createdAt: createdAt ?? this.createdAt,
       value: value == null ? totalPrice : this.value,
+      valuePaid: valuePaid ?? this.valuePaid,
       items: items ?? this.items,
       friends: friends ?? this.friends,
     );
@@ -61,6 +62,7 @@ class EventModel extends Base {
       'title': title,
       'createdAt': FieldValue.serverTimestamp(),
       'value': totalPrice,
+      'valuePaid': valuePaid,
       'items': items.map((x) => x.toMap()).toList(),
       'friends': friends.map((x) => x.toMap()).toList(),
     };

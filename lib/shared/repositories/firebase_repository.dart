@@ -26,7 +26,18 @@ class FirebaseRepository {
     }
   }
 
-  update() {}
+  Future<bool> update(
+      {required String id,
+      required String collection,
+      required Base model}) async {
+    try {
+      await firestore.collection(collection).doc(id).update(model.toMap());
+
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
 
   Future<List<Map<String, dynamic>>> where<T extends Base>({
     required String key,

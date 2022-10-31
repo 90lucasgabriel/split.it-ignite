@@ -22,10 +22,12 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
   final controller =
       EventDetailsController(firebaseRepository: FirebaseRepository());
 
+  late EventModel event;
   late ReactionDisposer _disposer;
 
   @override
   void initState() {
+    event = widget.event;
     _disposer = autorun((_) {
       if (controller.state.runtimeType == EventDetailsStateSuccess) {
         BotToast.closeAllLoading();
@@ -64,7 +66,7 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
           color: AppTheme.colors.gray,
         ),
         title: Text(
-          widget.event.title,
+          event.title,
           style: AppTheme.textStyles.appBarTitle
               .copyWith(color: AppTheme.colors.gray),
         ),
@@ -72,7 +74,7 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
           IconButton(
             onPressed: () async {
               await controller.firebaseRepository
-                  .delete(id: widget.event.id, collection: '/events');
+                  .delete(id: event.id, collection: '/events');
               Navigator.pop(context);
             },
             icon: Icon(
@@ -96,13 +98,29 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                     'PARTICIPANTES',
                     style: AppTheme.textStyles.eventTileTitle,
                   ),
-                  ...widget.event.friends
+                  ...event.friends
                       .map(
                         (person) => PersonCheckTile(
+                            key: UniqueKey(),
                             person: person,
-                            valueSplitted: widget.event.valueSplitted,
-                            isPaid: false,
-                            onCheckPressed: () {}),
+                            valueSplitted: event.valueSplitted,
+                            event: event,
+                            onCheckPressed: (newFriend) {
+                              final friends = event.friends;
+                              final indexWhere = friends.indexWhere(
+                                  (element) => element == newFriend);
+
+                              if (indexWhere != -1) {
+                                friends[indexWhere] = newFriend;
+                                final newPaid = event.totalPrice +
+                                    (newFriend.isPaid
+                                        ? -event.valueSplitted
+                                        : event.valueSplitted);
+                                event = event.copyWith(
+                                    friends: friends, valuePaid: newPaid);
+                                setState(() {});
+                              }
+                            }),
                       )
                       .toList(),
                 ],
@@ -116,7 +134,7 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                     style: AppTheme.textStyles.eventTileValue
                         .copyWith(color: AppTheme.colors.error)),
                 trailing: Text(
-                  widget.event.valueRemaining.toBrl(),
+                  event.valueRemaining.toBrl(),
                   style: AppTheme.textStyles.eventTileValue
                       .copyWith(color: AppTheme.colors.error),
                 ),
@@ -135,7 +153,7 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                   ),
                   ...ListTile.divideTiles(
                     color: AppTheme.colors.grayLight,
-                    tiles: widget.event.items
+                    tiles: event.items
                         .map(
                           (item) => ItemTile(item: item),
                         )
@@ -149,7 +167,7 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
               child: ListTile(
                 dense: true,
                 title: const Text('Total: '),
-                trailing: Text(widget.event.value.toBrl()),
+                trailing: Text(event.totalPrice.toBrl()),
               ),
             ),
           ],
