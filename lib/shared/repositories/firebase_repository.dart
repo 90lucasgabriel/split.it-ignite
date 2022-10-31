@@ -18,7 +18,9 @@ class FirebaseRepository {
   Future<List<Map<String, dynamic>>> get(String collection) async {
     try {
       final response = await firestore.collection(collection).get();
-      return response.docs.map((doc) => doc.data()).toList();
+      return response.docs
+          .map((doc) => doc.data()..addAll({'id': doc.id}))
+          .toList();
     } catch (error) {
       rethrow;
     }
@@ -46,4 +48,14 @@ class FirebaseRepository {
   }
 
   firstWhere() {}
+
+  Future<bool> delete({required String id, required String collection}) async {
+    try {
+      await firestore.collection(collection).doc(id).delete();
+
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
 }

@@ -11,11 +11,13 @@ import 'package:splitit/widgets/icon_card_widget.dart';
 class EventTileWidget extends StatelessWidget {
   final EventModel model;
   final bool isLoading;
+  final VoidCallback? onTap;
 
   const EventTileWidget({
     Key? key,
     required this.model,
     required this.isLoading,
+    this.onTap,
   }) : super(key: key);
 
   IconCardType get iconCardType =>
@@ -28,12 +30,7 @@ class EventTileWidget extends StatelessWidget {
     }
 
     return InkWell(
-      onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (_) => const EventDetailsPage(),
-        ),
-      ),
+      onTap: onTap,
       child: Column(
         children: [
           ListTile(

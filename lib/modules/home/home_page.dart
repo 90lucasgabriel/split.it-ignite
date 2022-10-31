@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:splitit/modules/event_details/event_details_page.dart';
 import 'package:splitit/modules/home/controllers/home.dart';
 import 'package:splitit/modules/home/repositories/home_firebase.dart';
 import 'package:splitit/modules/home/state/home.dart';
@@ -34,8 +35,9 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBarWidget(
         user: user,
-        onTapAddButton: () {
-          Navigator.pushNamed(context, '/create_split');
+        onTapAddButton: () async {
+          await Navigator.pushNamed(context, '/create_split');
+          controller.getEventList();
         },
       ),
       body: SingleChildScrollView(
@@ -58,6 +60,17 @@ class _HomePageState extends State<HomePage> {
                             (event) => EventTileWidget(
                               model: event,
                               isLoading: false,
+                              onTap: () async {
+                                await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => EventDetailsPage(
+                                      event: event,
+                                    ),
+                                  ),
+                                );
+                                controller.getEventList();
+                              },
                             ),
                           )
                           .toList());
